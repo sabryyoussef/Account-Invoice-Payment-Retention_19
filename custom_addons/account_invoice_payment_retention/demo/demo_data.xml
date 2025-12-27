@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <!-- ===== RETENTION ACCOUNTS ===== -->
+        <record id="account_retention_payable" model="account.account">
+            <field name="code">2410</field>
+            <field name="name">Retention Payable</field>
+            <field name="account_type">liability_current</field>
+            <field name="reconcile" eval="True"/>
+        </record>
+
+        <record id="account_retention_receivable" model="account.account">
+            <field name="code">1410</field>
+            <field name="name">Retention Receivable</field>
+            <field name="account_type">asset_current</field>
+            <field name="reconcile" eval="True"/>
+        </record>
+
+        <!-- ===== COMPANY CONFIGURATION ===== -->
+        <record id="base.main_company" model="res.company">
+            <field name="retention_account_id" ref="account_retention_payable"/>
+            <field name="retention_receivable_account_id" ref="account_retention_receivable"/>
+            <field name="retention_method">untax</field>
+        </record>
+
+        <!-- ===== DEMO PARTNERS ===== -->
+        <record id="partner_customer_construction" model="res.partner">
+            <field name="name">ABC Construction Ltd</field>
+            <field name="email">abc.construction@example.com</field>
+            <field name="phone">+1 555-0101</field>
+            <field name="company_type">company</field>
+        </record>
+
+        <record id="partner_customer_engineering" model="res.partner">
+            <field name="name">XYZ Engineering Corp</field>
+            <field name="email">xyz.engineering@example.com</field>
+            <field name="phone">+1 555-0102</field>
+            <field name="company_type">company</field>
+        </record>
+
+        <record id="partner_vendor_materials" model="res.partner">
+            <field name="name">Global Materials Supplier</field>
+            <field name="email">global.materials@example.com</field>
+            <field name="phone">+1 555-0201</field>
+            <field name="company_type">company</field>
+        </record>
+
+        <record id="partner_vendor_services" model="res.partner">
+            <field name="name">Professional Services Inc</field>
+            <field name="email">pro.services@example.com</field>
+            <field name="phone">+1 555-0202</field>
+            <field name="company_type">company</field>
+        </record>
+
+        <!-- ===== DEMO PRODUCTS ===== -->
+        <record id="product_construction_service" model="product.product">
+            <field name="name">Construction Services</field>
+            <field name="type">service</field>
+            <field name="list_price">5000.00</field>
+            <field name="standard_price">3500.00</field>
+        </record>
+
+        <record id="product_engineering_consultation" model="product.product">
+            <field name="name">Engineering Consultation</field>
+            <field name="type">service</field>
+            <field name="list_price">2500.00</field>
+            <field name="standard_price">1800.00</field>
+        </record>
+
+        <record id="product_building_materials" model="product.product">
+            <field name="name">Building Materials</field>
+            <field name="type">consu</field>
+            <field name="list_price">1500.00</field>
+            <field name="standard_price">1200.00</field>
+        </record>
+
+        <record id="product_maintenance_service" model="product.product">
+            <field name="name">Maintenance Service</field>
+            <field name="type">service</field>
+            <field name="list_price">800.00</field>
+            <field name="standard_price">500.00</field>
+        </record>
+
+        <!-- =============================================== -->
+        <!-- CUSTOMER INVOICES WITH RETENTION SCENARIOS     -->
+        <!-- =============================================== -->
+
+        <!-- Scenario 1: Customer Invoice - 10% Retention (Percent, Untaxed Amount) -->
+        <record id="demo_invoice_retention_10_percent" model="account.move">
+            <field name="move_type">out_invoice</field>
+            <field name="partner_id" ref="partner_customer_construction"/>
+            <field name="invoice_date" eval="time.strftime('%Y-%m-01')"/>
+            <field name="payment_retention">percent</field>
+            <field name="retention_method">untax</field>
+            <field name="amount_retention">10.0</field>
+            <field name="invoice_line_ids" eval="[(0, 0, {
+                'name': 'Construction Project Phase 1',
+                'product_id': ref('product_construction_service'),
+                'quantity': 1,
+                'price_unit': 10000.00,
+            })]"/>
+        </record>
+
+        <!-- Scenario 2: Customer Invoice - 5% Retention (Percent, Total Amount) -->
+        <record id="demo_invoice_retention_5_percent_total" model="account.move">
+            <field name="move_type">out_invoice</field>
+            <field name="partner_id" ref="partner_customer_engineering"/>
+            <field name="invoice_date" eval="time.strftime('%Y-%m-05')"/>
+            <field name="payment_retention">percent</field>
+            <field name="retention_method">total</field>
+            <field name="amount_retention">5.0</field>
+            <field name="invoice_line_ids" eval="[(0, 0, {
+                'name': 'Engineering Design Services',
+                'product_id': ref('product_engineering_consultation'),
+                'quantity': 4,
+                'price_unit': 2500.00,
+            })]"/>
+        </record>
+
+        <!-- Scenario 3: Customer Invoice - Fixed Amount Retention ($500) -->
+        <record id="demo_invoice_retention_fixed_500" model="account.move">
+            <field name="move_type">out_invoice</field>
+            <field name="partner_id" ref="partner_customer_construction"/>
+            <field name="invoice_date" eval="time.strftime('%Y-%m-10')"/>
+            <field name="payment_retention">amount</field>
+            <field name="amount_retention">500.0</field>
+            <field name="invoice_line_ids" eval="[(0, 0, {
+                'name': 'Construction Project Phase 2',
+                'product_id': ref('product_construction_service'),
+                'quantity': 1,
+                'price_unit': 5000.00,
+            })]"/>
+        </record>
+
+        <!-- Scenario 4: Customer Invoice - 15% Retention (Large Project) -->
+        <record id="demo_invoice_retention_15_percent_large" model="account.move">
+            <field name="move_type">out_invoice</field>
+            <field name="partner_id" ref="partner_customer_engineering"/>
+            <field name="invoice_date" eval="time.strftime('%Y-%m-15')"/>
+            <field name="payment_retention">percent</field>
+            <field name="retention_method">untax</field>
+            <field name="amount_retention">15.0</field>
+            <field name="invoice_line_ids" eval="[
+                (0, 0, {
+                    'name': 'Major Engineering Project - Design',
+                    'product_id': ref('product_engineering_consultation'),
+                    'quantity': 10,
+                    'price_unit': 2500.00,
+                }),
+                (0, 0, {
+                    'name': 'Major Engineering Project - Implementation',
+                    'product_id': ref('product_construction_service'),
+                    'quantity': 2,
+                    'price_unit': 7500.00,
+                }),
+            ]"/>
+        </record>
+
+        <!-- Scenario 5: Customer Invoice - No Retention (Normal Invoice) -->
+        <record id="demo_invoice_no_retention" model="account.move">
+            <field name="move_type">out_invoice</field>
+            <field name="partner_id" ref="partner_customer_construction"/>
+            <field name="invoice_date" eval="time.strftime('%Y-%m-20')"/>
+            <field name="invoice_line_ids" eval="[(0, 0, {
+                'name': 'Quick Repair Service',
+                'product_id': ref('product_maintenance_service'),
+                'quantity': 2,
+                'price_unit': 800.00,
+            })]"/>
+        </record>
+
+        <!-- =============================================== -->
+        <!-- VENDOR BILLS WITH RETENTION SCENARIOS          -->
+        <!-- =============================================== -->
+
+        <!-- Scenario 6: Vendor Bill - 10% Retention (Percent, Untaxed) -->
+        <record id="demo_bill_retention_10_percent" model="account.move">
+            <field name="move_type">in_invoice</field>
+            <field name="partner_id" ref="partner_vendor_materials"/>
+            <field name="invoice_date" eval="time.strftime('%Y-%m-02')"/>
+            <field name="payment_retention">percent</field>
+            <field name="retention_method">untax</field>
+            <field name="amount_retention">10.0</field>
+            <field name="invoice_line_ids" eval="[(0, 0, {
+                'name': 'Bulk Building Materials Order',
+                'product_id': ref('product_building_materials'),
+                'quantity': 20,
+                'price_unit': 1500.00,
+            })]"/>
+        </record>
+
+        <!-- Scenario 7: Vendor Bill - 5% Retention (Percent, Total) -->
+        <record id="demo_bill_retention_5_percent_total" model="account.move">
+            <field name="move_type">in_invoice</field>
+            <field name="partner_id" ref="partner_vendor_services"/>
+            <field name="invoice_date" eval="time.strftime('%Y-%m-08')"/>
+            <field name="payment_retention">percent</field>
+            <field name="retention_method">total</field>
+            <field name="amount_retention">5.0</field>
+            <field name="invoice_line_ids" eval="[(0, 0, {
+                'name': 'Professional Consulting Services',
+                'product_id': ref('product_maintenance_service'),
+                'quantity': 10,
+                'price_unit': 500.00,
+            })]"/>
+        </record>
+
+        <!-- Scenario 8: Vendor Bill - Fixed Amount Retention ($1000) -->
+        <record id="demo_bill_retention_fixed_1000" model="account.move">
+            <field name="move_type">in_invoice</field>
+            <field name="partner_id" ref="partner_vendor_materials"/>
+            <field name="invoice_date" eval="time.strftime('%Y-%m-12')"/>
+            <field name="payment_retention">amount</field>
+            <field name="amount_retention">1000.0</field>
+            <field name="invoice_line_ids" eval="[(0, 0, {
+                'name': 'Special Materials Order',
+                'product_id': ref('product_building_materials'),
+                'quantity': 15,
+                'price_unit': 1200.00,
+            })]"/>
+        </record>
+
+        <!-- Scenario 9: Vendor Bill - 8% Retention (Multiple Lines) -->
+        <record id="demo_bill_retention_8_percent_multi" model="account.move">
+            <field name="move_type">in_invoice</field>
+            <field name="partner_id" ref="partner_vendor_services"/>
+            <field name="invoice_date" eval="time.strftime('%Y-%m-18')"/>
+            <field name="payment_retention">percent</field>
+            <field name="retention_method">untax</field>
+            <field name="amount_retention">8.0</field>
+            <field name="invoice_line_ids" eval="[
+                (0, 0, {
+                    'name': 'IT Infrastructure Setup',
+                    'product_id': ref('product_maintenance_service'),
+                    'quantity': 5,
+                    'price_unit': 2000.00,
+                }),
+                (0, 0, {
+                    'name': 'Annual Maintenance Contract',
+                    'product_id': ref('product_maintenance_service'),
+                    'quantity': 1,
+                    'price_unit': 5000.00,
+                }),
+            ]"/>
+        </record>
+
+        <!-- Scenario 10: Vendor Bill - No Retention (Normal Bill) -->
+        <record id="demo_bill_no_retention" model="account.move">
+            <field name="move_type">in_invoice</field>
+            <field name="partner_id" ref="partner_vendor_materials"/>
+            <field name="invoice_date" eval="time.strftime('%Y-%m-25')"/>
+            <field name="invoice_line_ids" eval="[(0, 0, {
+                'name': 'Office Supplies',
+                'product_id': ref('product_building_materials'),
+                'quantity': 5,
+                'price_unit': 200.00,
+            })]"/>
+        </record>
+
+    </data>
+</odoo>
