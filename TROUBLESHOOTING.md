@@ -2,27 +2,104 @@
 
 ## Common Issues and Solutions
 
+### ⚠️ ERROR: "Retention payable account should be set to allow Reconciliation"
+
+**This is the #1 most common error!**
+
+#### Why This Happens:
+The retention feature requires accounts that can be reconciled (matched with payments). If the account you selected doesn't have reconciliation enabled, you'll get this error.
+
+#### Step-by-Step Fix:
+
+1. **Open Chart of Accounts**
+   - Go to: Accounting → Configuration → Chart of Accounts
+
+2. **Find Your Retention Account**
+   - Search for the account name you selected in settings
+   - Or filter by account type "Current Liabilities"
+
+3. **Edit the Account**
+   - Click on the account to open it
+   - Click **Edit** (top right corner)
+
+4. **Enable Reconciliation**
+   - Scroll down to find: **"Allow Reconciliation"** checkbox
+   - ✅ **CHECK this box**
+   - Click **Save**
+
+5. **Repeat for BOTH Accounts**
+   - Retention Payable Account (for vendor bills)
+   - Retention Receivable Account (for customer invoices)
+
+6. **Go Back to Settings**
+   - Settings → Accounting
+   - Click **Save** again
+   - Error should be gone!
+
+#### Visual Guide:
+```
+Chart of Accounts → [Your Retention Account] → Edit
+
+┌─────────────────────────────────────┐
+│ Account Name: Retention Payable     │
+│ Code: RE001                         │
+│ Type: Current Liabilities           │
+│                                     │
+│ ✅ Allow Reconciliation  ← CHECK!   │
+│                                     │
+│ [Save]                              │
+└─────────────────────────────────────┘
+```
+
+#### Alternative: Create New Accounts
+
+If easier, create brand new accounts:
+
+```
+Accounting → Configuration → Chart of Accounts → Create
+
+Account 1:
+- Name: Retention Payable
+- Code: RE001
+- Type: Current Liabilities
+- ✅ Allow Reconciliation: YES
+
+Account 2:
+- Name: Retention Receivable  
+- Code: RE002
+- Type: Current Liabilities
+- ✅ Allow Reconciliation: YES
+```
+
+Then select these new accounts in Settings → Accounting.
+
+---
+
 ### Issue: Cannot Enable Invoice Retention on Payment
 
 #### Checklist:
 
 1. **Enable the Feature First**
-   - Navigate to: `Settings → Accounting`
-   - Look for: "Enable Invoice's Retention on Payment"
+   - Navigate to: `Settings` (top menu) → `Accounting` (left sidebar)
+   - In the **General Settings** section (top of page)
+   - Look for checkbox: "Enable Invoice's Retention on Payment"
    - ✓ Check this box to enable the feature
-   - ✓ Save settings
+   - Additional fields will appear below the checkbox
 
 2. **Configure Retention Accounts** (Required!)
-   - In the same settings page, after enabling the feature:
-   - Set **Retention Payable Account**: For vendor bills retention
-   - Set **Retention Receivable Account**: For customer invoices retention
+   - After enabling, scroll down slightly on the same page
+   - You'll see two account selection fields:
+     - **Retention Payable Account**: For vendor bills retention
+     - **Retention Receivable Account**: For customer invoices retention
    - ⚠️ Both accounts MUST have "Allow Reconciliation" enabled
-   - Save settings
+   - Click each field to select or create an account
 
 3. **Select Retention Method**
-   - Choose between:
-     - **Untaxed Amount**: Retention calculated from subtotal (before tax)
-     - **Total**: Retention calculated from total amount (including tax)
+   - On the same page, find the **Retention Method** section
+   - Choose one radio button:
+     - ⚪ **Untaxed Amount**: Retention from subtotal (before tax)
+     - ⚪ **Total**: Retention from total amount (including tax)
+   - Click **Save** button to apply all settings
 
 4. **Set Retention on Invoice** (Before Payment!)
    - Open the invoice (must be in Draft state)

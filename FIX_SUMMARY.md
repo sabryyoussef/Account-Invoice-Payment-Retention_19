@@ -56,26 +56,67 @@ Created three comprehensive guides:
 
 ### Phase 1: System Configuration (Admin - One Time)
 
-1. **Enable Feature**
+1. **Navigate to Settings**
    ```
-   Settings → Accounting → Enable Invoice's Retention on Payment ✓
+   Settings (top menu) → Accounting (left sidebar)
    ```
 
-2. **Create Retention Accounts** (if needed)
+2. **Enable Feature in General Settings**
+   ```
+   General Settings section (top of page)
+   ✓ Enable Invoice's Retention on Payment (checkbox)
+   ```
+
+3. **Create Retention Accounts FIRST** (if needed)
    ```
    Accounting → Configuration → Chart of Accounts → Create
+   
+   Account 1 - Retention Payable:
    - Name: "Retention Payable"
+   - Code: RE001 (or your numbering)
    - Type: Current Liabilities
-   - Allow Reconciliation: ✓ MUST BE CHECKED
+   - ✅ Allow Reconciliation: MUST BE CHECKED! ← CRITICAL!
+   - Save
+   
+   Account 2 - Retention Receivable:
+   - Name: "Retention Receivable"
+   - Code: RE002 (or your numbering)
+   - Type: Current Liabilities
+   - ✅ Allow Reconciliation: MUST BE CHECKED! ← CRITICAL!
+   - Save
+   ```
+   
+   **⚠️ If you get error "Retention account should allow reconciliation":**
+   - Edit your selected account
+   - Enable the "Allow Reconciliation" checkbox
+   - Save and try again
+
+4. **Configure Retention Accounts** (back in Settings → Accounting)
+   ```
+   After enabling checkbox, fields appear:
+   - Retention Payable Account: Select the account you created
+   - Retention Receivable Account: Select the account you created
    ```
 
-3. **Configure Settings**
+5. **Select Retention Method** (on same page)
    ```
-   Settings → Accounting (scroll down)
-   - Retention Payable Account: [Select account]
-   - Retention Receivable Account: [Select account]  
-   - Retention Method: Untaxed Amount or Total
-   - Save
+   Retention Method section:
+   ○ Untaxed Amount (retention from subtotal)
+   ○ Total (retention from total including tax)
+   ```
+
+5. **Save Settings**
+   ```
+   Click Save button (top-left corner)
+   ```
+
+**If you need to create retention accounts:**
+   ```
+   Accounting → Configuration → Chart of Accounts → Create
+   - Name: "Retention Payable" / "Retention Receivable"
+   - Type: Current Liabilities
+   - Allow Reconciliation: ✓ MUST BE CHECKED
+   - Save, then go back to Settings to select them
    ```
 
 ### Phase 2: Invoice Setup (User - Per Invoice)

@@ -3,27 +3,37 @@
 ## Initial Setup (One-time)
 
 ### Step 1: Enable the Feature
-1. Go to **Settings** → **Accounting**
-2. Scroll to find **"Enable Invoice's Retention on Payment"**
-3. ✓ Check the box
-4. Save
+1. Go to **Settings** (top menu)
+2. Click **Accounting** in the left sidebar
+3. In the **General Settings** section (top of page), find:
+   - ☑️ **"Enable Invoice's Retention on Payment"**
+4. ✓ Check the box
+5. The retention account fields will appear below
 
 ### Step 2: Configure Retention Accounts
-After enabling, two new fields appear:
+After enabling the checkbox, configure the accounts (same page):
 
-1. **Retention Payable Account** (for vendor bills)
-   - Select an account with reconciliation enabled
-   - Recommended: Create account type "Current Liabilities"
+1. **Retention Payable Account**
+   - Click the field and select/create an account
+   - Use for vendor bills retention
+   - ⚠️ Account MUST have "Allow Reconciliation" enabled
+   - Recommended: Account type "Current Liabilities"
 
-2. **Retention Receivable Account** (for customer invoices)
-   - Select an account with reconciliation enabled
-   - Recommended: Create account type "Current Liabilities"
+2. **Retention Receivable Account**
+   - Click the field and select/create an account  
+   - Use for customer invoices retention
+   - ⚠️ Account MUST have "Allow Reconciliation" enabled
+   - Recommended: Account type "Current Liabilities"
 
-3. **Retention Method** (choose one):
-   - **Untaxed Amount**: Calculate retention from subtotal (before tax)
-   - **Total**: Calculate retention from total (including tax)
+### Step 3: Select Retention Method
+In the same **General Settings** section:
 
-4. Save settings
+**Retention Method** - Choose one:
+- ⚪ **Untaxed Amount**: Calculate retention from subtotal (before tax)
+- ⚪ **Total**: Calculate retention from total amount (including tax)
+
+### Step 4: Save Settings
+Click **Save** button (top-left) to apply all changes
 
 ---
 
@@ -146,12 +156,28 @@ When it's time to return/release the retention:
 4. ✓ Retention amount > 0?
 5. ✓ User has retention permissions?
 
-### Error: "Retention account should allow reconciliation"
-**Fix:**
-1. Go to: Accounting → Configuration → Chart of Accounts
-2. Find your retention accounts
-3. Edit → Enable "Allow Reconciliation"
-4. Save
+### Error: "Retention payable account should be set to allow Reconciliation"
+**This is the most common error!**
+
+**Quick Fix:**
+1. Go to: **Accounting → Configuration → Chart of Accounts**
+2. Search for your retention account (the one you selected)
+3. Click on the account to open it
+4. Click **Edit** button (top right)
+5. Find the checkbox: **"Allow Reconciliation"**
+6. ✅ **CHECK this box**
+7. Click **Save**
+8. Go back to **Settings → Accounting**
+9. Click **Save** again
+
+**If you get this for BOTH accounts:**
+- Repeat the above steps for BOTH:
+  - Retention Payable Account
+  - Retention Receivable Account
+
+**Still getting error?**
+- Make sure you're editing the SAME accounts you selected in settings
+- Try creating new accounts specifically for retention (see Step 2 above)
 
 ### Cannot pay multiple invoices with retention
 **This is by design:**
@@ -164,12 +190,14 @@ When it's time to return/release the retention:
 
 | Step | Action | Location |
 |------|--------|----------|
-| 1 | Enable feature | Settings → Accounting |
-| 2 | Configure accounts | Settings → Accounting |
-| 3 | Set retention on invoice | Invoice form (draft) |
-| 4 | Post invoice | Invoice → Confirm |
-| 5 | Apply retention on payment | Register Payment → Toggle ON |
-| 6 | Return retention later | New invoice → Select retention moves |
+| 1 | Enable feature checkbox | Settings → Accounting → General Settings |
+| 2 | Configure retention accounts | Settings → Accounting → General Settings |
+| 3 | Select retention method | Settings → Accounting → General Settings |
+| 4 | Save settings | Click Save button |
+| 5 | Set retention on invoice | Invoice form (draft state) |
+| 6 | Post invoice | Invoice → Confirm button |
+| 7 | Apply retention on payment | Register Payment → Toggle ON |
+| 8 | Return retention later | New invoice → Select retention moves |
 
 ---
 

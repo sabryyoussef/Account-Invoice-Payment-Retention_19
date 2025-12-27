@@ -1,22 +1,28 @@
 **To plan for retention during invoice**
 
-#. Create new Vendor Bill (or Customer Invoice).
-#. Specify amount to retain, by percent or amount.
-#. Validate invoice as per normal.
+#. Create new Vendor Bill (or Customer Invoice) in draft state.
+#. In the invoice form, locate the **Payment Retention** field (below Reference).
+#. Select retention type: **Percent** or **Amount**.
+#. Enter the retention value (e.g., 10 for 10% or a fixed amount like 50.00).
+#. System auto-calculates and displays the **Retention Amount**.
+#. Post/Validate invoice as per normal.
 
-**To make payment retention**
+**To make payment with retention**
 
-#. From the invoice, click Register Payment.
-#. On the payment window, system suggest the retention amount, click on helper toggle to apply it.
-#. By default, enforce retention is checked to ensure that, a valid retention amount and retention account is applied.
-#. Once ready, make payment as per normal. Journal Entry created with a retention account move line (to be cleared at later time).
+#. From the posted invoice, click **Register Payment** button.
+#. Payment window opens with **Suggested Retention** amount displayed.
+#. Toggle **Apply Retention** to ON to apply the retention.
+#. **Enforce Retention** checkbox ensures valid retention amount and account (checked by default).
+#. Payment amount automatically adjusts (Total - Retention Amount).
+#. Create payment as normal - Journal Entry includes retention account move line.
 
-**Note:** System just help to validate retention. At the end, user can ignore the retention.
+**Note:** While system validates retention, user can choose to ignore it by leaving Apply Retention toggle OFF.
 
 **To return the retained amount**
 
-#. As time arrived to return the retained amount. Create the new Vendor Bill (or Customer Invoice).
-#. Select the partner. Return Retention field will list only uncleared retained amount for this partner.
-#. Select one or multiple payments (journal entry), system will auto populate the retained amount.
-#. Validate invoice as per normal, system will now clear (reconcile) that retention.
-#. Proceed to payment as per normal.
+#. When ready to return retained amount, create new Vendor Bill (or Customer Invoice).
+#. Select the partner - **Return Retention** field shows uncleared retained amounts.
+#. Select one or multiple retention payments (journal entries).
+#. System auto-populates invoice lines with retained amounts.
+#. Post/Validate invoice - system reconciles and clears the retention.
+#. Process payment as per normal.
