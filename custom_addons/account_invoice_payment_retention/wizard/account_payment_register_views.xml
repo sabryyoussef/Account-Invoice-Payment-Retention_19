@@ -16,7 +16,11 @@
                 >
                     <field name="retention_amount_currency" />
                     <span class="mx-3" />
-                    <field name="apply_payment_retention" widget="boolean_toggle" />
+                    <field 
+                        name="apply_payment_retention" 
+                        widget="boolean_toggle"
+                        readonly="not enforce_payment_retention"
+                    />
                 </div>
                 <field
                     name="enforce_payment_retention"
