@@ -153,128 +153,162 @@ def _create_demo_invoices(env, retention_payable, retention_receivable):
         _logger.warning("Income/Expense accounts not found, skipping invoice creation")
         return
     
-    # Customer Invoice Scenarios
+    # Customer Invoice Scenarios - Create invoice first, then apply retention
     invoices_data = [
         # Scenario 1: Customer Invoice - 10% Retention (Percent, Untaxed)
         {
-            'move_type': 'out_invoice',
-            'partner_id': customer1.id,
-            'payment_retention': 'percent',
-            'retention_method': 'untax',
-            'amount_retention': 10.0,
-            'invoice_line_ids': [(0, 0, {
-                'name': 'Construction Project Phase 1 - 10% Retention',
-                'quantity': 1,
-                'price_unit': 10000.00,
-                'account_id': income_account.id,
-            })],
+            'base': {
+                'move_type': 'out_invoice',
+                'partner_id': customer1.id,
+                'invoice_line_ids': [(0, 0, {
+                    'name': 'Construction Project Phase 1 - 10% Retention',
+                    'quantity': 1,
+                    'price_unit': 10000.00,
+                    'account_id': income_account.id,
+                })],
+            },
+            'retention': {
+                'payment_retention': 'percent',
+                'retention_method': 'untax',
+                'amount_retention': 10.0,
+            },
         },
         # Scenario 2: Customer Invoice - 5% Retention (Percent, Total)
         {
-            'move_type': 'out_invoice',
-            'partner_id': customer2.id,
-            'payment_retention': 'percent',
-            'retention_method': 'total',
-            'amount_retention': 5.0,
-            'invoice_line_ids': [(0, 0, {
-                'name': 'Engineering Design Services - 5% Retention (Total)',
-                'quantity': 4,
-                'price_unit': 2500.00,
-                'account_id': income_account.id,
-            })],
+            'base': {
+                'move_type': 'out_invoice',
+                'partner_id': customer2.id,
+                'invoice_line_ids': [(0, 0, {
+                    'name': 'Engineering Design Services - 5% Retention (Total)',
+                    'quantity': 4,
+                    'price_unit': 2500.00,
+                    'account_id': income_account.id,
+                })],
+            },
+            'retention': {
+                'payment_retention': 'percent',
+                'retention_method': 'total',
+                'amount_retention': 5.0,
+            },
         },
         # Scenario 3: Customer Invoice - Fixed $500 Retention
         {
-            'move_type': 'out_invoice',
-            'partner_id': customer1.id,
-            'payment_retention': 'amount',
-            'amount_retention': 500.0,
-            'invoice_line_ids': [(0, 0, {
-                'name': 'Construction Project Phase 2 - Fixed $500 Retention',
-                'quantity': 1,
-                'price_unit': 5000.00,
-                'account_id': income_account.id,
-            })],
+            'base': {
+                'move_type': 'out_invoice',
+                'partner_id': customer1.id,
+                'invoice_line_ids': [(0, 0, {
+                    'name': 'Construction Project Phase 2 - Fixed $500 Retention',
+                    'quantity': 1,
+                    'price_unit': 5000.00,
+                    'account_id': income_account.id,
+                })],
+            },
+            'retention': {
+                'payment_retention': 'amount',
+                'amount_retention': 500.0,
+            },
         },
         # Scenario 4: Customer Invoice - No Retention
         {
-            'move_type': 'out_invoice',
-            'partner_id': customer2.id,
-            'invoice_line_ids': [(0, 0, {
-                'name': 'Quick Consulting Service - No Retention',
-                'quantity': 2,
-                'price_unit': 800.00,
-                'account_id': income_account.id,
-            })],
+            'base': {
+                'move_type': 'out_invoice',
+                'partner_id': customer2.id,
+                'invoice_line_ids': [(0, 0, {
+                    'name': 'Quick Consulting Service - No Retention',
+                    'quantity': 2,
+                    'price_unit': 800.00,
+                    'account_id': income_account.id,
+                })],
+            },
         },
         # Scenario 5: Vendor Bill - 10% Retention (Percent, Untaxed)
         {
-            'move_type': 'in_invoice',
-            'partner_id': vendor1.id,
-            'payment_retention': 'percent',
-            'retention_method': 'untax',
-            'amount_retention': 10.0,
-            'invoice_line_ids': [(0, 0, {
-                'name': 'Bulk Building Materials - 10% Retention',
-                'quantity': 20,
-                'price_unit': 1500.00,
-                'account_id': expense_account.id,
-            })],
+            'base': {
+                'move_type': 'in_invoice',
+                'partner_id': vendor1.id,
+                'invoice_line_ids': [(0, 0, {
+                    'name': 'Bulk Building Materials - 10% Retention',
+                    'quantity': 20,
+                    'price_unit': 1500.00,
+                    'account_id': expense_account.id,
+                })],
+            },
+            'retention': {
+                'payment_retention': 'percent',
+                'retention_method': 'untax',
+                'amount_retention': 10.0,
+            },
         },
         # Scenario 6: Vendor Bill - Fixed $1000 Retention
         {
-            'move_type': 'in_invoice',
-            'partner_id': vendor2.id,
-            'payment_retention': 'amount',
-            'amount_retention': 1000.0,
-            'invoice_line_ids': [(0, 0, {
-                'name': 'Professional Consulting Contract - Fixed $1000 Retention',
-                'quantity': 1,
-                'price_unit': 15000.00,
-                'account_id': expense_account.id,
-            })],
+            'base': {
+                'move_type': 'in_invoice',
+                'partner_id': vendor2.id,
+                'invoice_line_ids': [(0, 0, {
+                    'name': 'Professional Consulting Contract - Fixed $1000 Retention',
+                    'quantity': 1,
+                    'price_unit': 15000.00,
+                    'account_id': expense_account.id,
+                })],
+            },
+            'retention': {
+                'payment_retention': 'amount',
+                'amount_retention': 1000.0,
+            },
         },
         # Scenario 7: Vendor Bill - 8% Retention (Multi-line)
         {
-            'move_type': 'in_invoice',
-            'partner_id': vendor1.id,
-            'payment_retention': 'percent',
-            'retention_method': 'untax',
-            'amount_retention': 8.0,
-            'invoice_line_ids': [
-                (0, 0, {
-                    'name': 'IT Infrastructure Setup - 8% Retention',
-                    'quantity': 5,
-                    'price_unit': 2000.00,
-                    'account_id': expense_account.id,
-                }),
-                (0, 0, {
-                    'name': 'Annual Maintenance Contract',
-                    'quantity': 1,
-                    'price_unit': 5000.00,
-                    'account_id': expense_account.id,
-                }),
-            ],
+            'base': {
+                'move_type': 'in_invoice',
+                'partner_id': vendor1.id,
+                'invoice_line_ids': [
+                    (0, 0, {
+                        'name': 'IT Infrastructure Setup - 8% Retention',
+                        'quantity': 5,
+                        'price_unit': 2000.00,
+                        'account_id': expense_account.id,
+                    }),
+                    (0, 0, {
+                        'name': 'Annual Maintenance Contract',
+                        'quantity': 1,
+                        'price_unit': 5000.00,
+                        'account_id': expense_account.id,
+                    }),
+                ],
+            },
+            'retention': {
+                'payment_retention': 'percent',
+                'retention_method': 'untax',
+                'amount_retention': 8.0,
+            },
         },
         # Scenario 8: Vendor Bill - No Retention
         {
-            'move_type': 'in_invoice',
-            'partner_id': vendor2.id,
-            'invoice_line_ids': [(0, 0, {
-                'name': 'Office Supplies - No Retention',
-                'quantity': 10,
-                'price_unit': 100.00,
-                'account_id': expense_account.id,
-            })],
+            'base': {
+                'move_type': 'in_invoice',
+                'partner_id': vendor2.id,
+                'invoice_line_ids': [(0, 0, {
+                    'name': 'Office Supplies - No Retention',
+                    'quantity': 10,
+                    'price_unit': 100.00,
+                    'account_id': expense_account.id,
+                })],
+            },
         },
     ]
     
     for invoice_data in invoices_data:
         try:
-            invoice = env['account.move'].create(invoice_data)
+            # Create invoice first without retention fields
+            invoice = env['account.move'].create(invoice_data['base'])
+            
+            # Then apply retention settings after invoice is created
+            if invoice_data.get('retention'):
+                invoice.write(invoice_data['retention'])
+            
             _logger.info("Created demo %s: %s (Retention: %s)", 
-                        'Invoice' if invoice_data['move_type'] == 'out_invoice' else 'Bill',
+                        'Invoice' if invoice_data['base']['move_type'] == 'out_invoice' else 'Bill',
                         invoice.name or 'Draft',
-                        invoice_data.get('payment_retention', 'None'))
+                        invoice_data.get('retention', {}).get('payment_retention', 'None'))
         except Exception as e:
             _logger.warning("Failed to create demo invoice: %s", str(e))
