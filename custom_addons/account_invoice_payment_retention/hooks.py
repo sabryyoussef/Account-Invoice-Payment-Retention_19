@@ -64,13 +64,22 @@ def _load_demo_data(env):
     })
     _logger.info("Configured company retention settings")
     
-    # Add admin user to retention group
+    # Add admin user to retention group using SQL to avoid API differences
     retention_group = env.ref('account_invoice_payment_retention.group_payment_retention', raise_if_not_found=False)
     if retention_group:
         admin_user = env.ref('base.user_admin', raise_if_not_found=False)
-        if admin_user and retention_group not in admin_user.groups_id:
-            admin_user.write({'groups_id': [(4, retention_group.id)]})
-            _logger.info("Added admin user to retention group")
+        if admin_user:
+            # Check if user already has the group
+            env.cr.execute("""
+                SELECT 1 FROM res_groups_users_rel 
+                WHERE uid = %s AND gid = %s
+            """, (admin_user.id, retention_group.id))
+            if not env.cr.fetchone():
+                env.cr.execute("""
+                    INSERT INTO res_groups_users_rel (uid, gid) 
+                    VALUES (%s, %s)
+                """, (admin_user.id, retention_group.id))
+                _logger.info("Added admin user to retention group")
     
     # Create demo partners if they don't exist
     _create_demo_partners(env)
