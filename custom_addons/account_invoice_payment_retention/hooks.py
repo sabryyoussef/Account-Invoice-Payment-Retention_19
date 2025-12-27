@@ -35,6 +35,11 @@ def _load_demo_data(env):
             'reconcile': True,
         })
         _logger.info("Created Retention Payable Account: %s", retention_payable.code)
+    else:
+        # Ensure reconcile is enabled on existing account
+        if not retention_payable.reconcile:
+            retention_payable.write({'reconcile': True})
+            _logger.info("Enabled reconciliation on Retention Payable Account")
     
     # Create Retention Receivable Account if not exists
     if not retention_receivable:
@@ -45,6 +50,11 @@ def _load_demo_data(env):
             'reconcile': True,
         })
         _logger.info("Created Retention Receivable Account: %s", retention_receivable.code)
+    else:
+        # Ensure reconcile is enabled on existing account
+        if not retention_receivable.reconcile:
+            retention_receivable.write({'reconcile': True})
+            _logger.info("Enabled reconciliation on Retention Receivable Account")
     
     # Configure company with retention accounts
     company.write({
