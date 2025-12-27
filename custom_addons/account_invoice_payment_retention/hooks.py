@@ -20,12 +20,10 @@ def _load_demo_data(env):
     # Check if retention accounts already exist
     retention_payable = env['account.account'].search([
         ('code', '=', '241000'),
-        ('company_id', '=', company.id)
     ], limit=1)
     
     retention_receivable = env['account.account'].search([
         ('code', '=', '141000'),
-        ('company_id', '=', company.id)
     ], limit=1)
     
     # Create Retention Payable Account if not exists
@@ -35,7 +33,6 @@ def _load_demo_data(env):
             'name': 'Retention Payable',
             'account_type': 'liability_current',
             'reconcile': True,
-            'company_id': company.id,
         })
         _logger.info("Created Retention Payable Account: %s", retention_payable.code)
     
@@ -46,7 +43,6 @@ def _load_demo_data(env):
             'name': 'Retention Receivable',
             'account_type': 'asset_current',
             'reconcile': True,
-            'company_id': company.id,
         })
         _logger.info("Created Retention Receivable Account: %s", retention_receivable.code)
     
@@ -128,12 +124,10 @@ def _create_demo_invoices(env, retention_payable, retention_receivable):
     # Get default accounts
     income_account = env['account.account'].search([
         ('account_type', '=', 'income'),
-        ('company_id', '=', env.company.id)
     ], limit=1)
     
     expense_account = env['account.account'].search([
         ('account_type', '=', 'expense'),
-        ('company_id', '=', env.company.id)
     ], limit=1)
     
     if not income_account or not expense_account:
