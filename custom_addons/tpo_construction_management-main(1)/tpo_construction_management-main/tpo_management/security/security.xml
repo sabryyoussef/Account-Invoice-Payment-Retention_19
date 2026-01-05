@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- TPO Groups -->
+        <record id="group_tpo_manager" model="res.groups">
+            <field name="name">TPO Manager</field>
+        </record>
+        
+        <record id="group_tpo_technical_office_engineer" model="res.groups">
+            <field name="name">Technical Office Engineer</field>
+        </record>
+        
+        <record id="group_tpo_site_engineer" model="res.groups">
+            <field name="name">Site Engineer</field>
+        </record>
+        
+        <record id="group_tpo_document_controller" model="res.groups">
+            <field name="name">Document Controller</field>
+        </record>
+        
+        <record id="group_tpo_project_manager" model="res.groups">
+            <field name="name">Project Manager</field>
+        </record>
+    </data>
+</odoo>
+

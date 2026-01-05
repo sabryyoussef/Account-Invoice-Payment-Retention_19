@@ -1,0 +1,32 @@
+<svg width="128" height="128" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#714B67;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#875A7B;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background circle -->
+  <circle cx="64" cy="64" r="60" fill="url(#grad1)" stroke="#875A7B" stroke-width="2"/>
+  
+  <!-- Document/Folder icon representing project management -->
+  <rect x="32" y="28" width="64" height="72" rx="4" fill="#ffffff" opacity="0.95"/>
+  <rect x="32" y="28" width="64" height="20" rx="4" fill="#875A7B" opacity="0.8"/>
+  
+  <!-- Horizontal lines representing documents -->
+  <line x1="40" y1="60" x2="88" y2="60" stroke="#714B67" stroke-width="3" stroke-linecap="round"/>
+  <line x1="40" y1="72" x2="88" y2="72" stroke="#714B67" stroke-width="3" stroke-linecap="round"/>
+  <line x1="40" y1="84" x2="88" y2="84" stroke="#714B67" stroke-width="3" stroke-linecap="round"/>
+  
+  <!-- Checkmark for completion -->
+  <path d="M 50 90 L 58 98 L 78 78" stroke="#875A7B" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  
+  <!-- Small gear icon for management/tools -->
+  <circle cx="96" cy="40" r="12" fill="#ffffff" opacity="0.9"/>
+  <circle cx="96" cy="40" r="8" fill="none" stroke="#875A7B" stroke-width="2"/>
+  <circle cx="96" cy="40" r="4" fill="#875A7B"/>
+  <line x1="96" y1="28" x2="96" y2="24" stroke="#875A7B" stroke-width="2" stroke-linecap="round"/>
+  <line x1="96" y1="52" x2="96" y2="56" stroke="#875A7B" stroke-width="2" stroke-linecap="round"/>
+  <line x1="108" y1="40" x2="112" y2="40" stroke="#875A7B" stroke-width="2" stroke-linecap="round"/>
+  <line x1="84" y1="40" x2="80" y2="40" stroke="#875A7B" stroke-width="2" stroke-linecap="round"/>
+</svg>

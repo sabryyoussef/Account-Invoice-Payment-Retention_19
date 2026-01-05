@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_report_change_order" model="ir.actions.report">
+        <field name="name">Change Order Report</field>
+        <field name="model">tpo.change.order</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">tpo_reports.change_order_report_template</field>
+        <field name="report_file">tpo_reports.change_order_report</field>
+        <field name="print_report_name">'Change Order Report - %s' % (object.name)</field>
+    </record>
+    
+    <template id="change_order_report_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <div class="page">
+                    <div class="oe_structure"/>
+                    <div class="row">
+                        <div class="col-12">
+                            <h2>Change Order / Variation Order Report</h2>
+                            <h3 t-field="doc.name"/>
+                            <p><strong>Project:</strong> <span t-field="doc.project_id.name"/></p>
+                            <p><strong>Change Type:</strong> <span t-field="doc.change_type"/></p>
+                            <p><strong>Status:</strong> <span t-field="doc.state"/></p>
+                            <p><strong>Change Amount:</strong> <span t-field="doc.change_amount"/></p>
+                            
+                            <h4>Change Order Lines</h4>
+                            <table class="table table-sm">
+                                <thead>
+                                    <tr>
+                                        <th>Item Code</th>
+                                        <th>Description</th>
+                                        <th>Original Qty</th>
+                                        <th>Revised Qty</th>
+                                        <th>Change Qty</th>
+                                        <th>Amount</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="doc.line_ids" t-as="line">
+                                        <tr>
+                                            <td t-field="line.item_code"/>
+                                            <td t-field="line.description"/>
+                                            <td t-field="line.original_quantity"/>
+                                            <td t-field="line.revised_quantity"/>
+                                            <td t-field="line.quantity_change"/>
+                                            <td t-field="line.amount"/>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="oe_structure"/>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>
+

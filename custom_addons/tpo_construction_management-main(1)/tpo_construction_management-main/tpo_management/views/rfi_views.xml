@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_tpo_rfi_tree" model="ir.ui.view">
+        <field name="name">tpo.rfi.tree</field>
+        <field name="model">tpo.rfi</field>
+        <field name="arch" type="xml">
+            <list string="Request for Information">
+                <field name="name"/>
+                <field name="project_id"/>
+                <field name="date"/>
+                <field name="priority"/>
+                <field name="state"/>
+            </list>
+        </field>
+    </record>
+    
+    <record id="view_tpo_rfi_form" model="ir.ui.view">
+        <field name="name">tpo.rfi.form</field>
+        <field name="model">tpo.rfi</field>
+        <field name="arch" type="xml">
+            <form string="Request for Information">
+                <header>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,submitted,answered"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="project_id"/>
+                            <field name="date"/>
+                            <field name="due_date"/>
+                        </group>
+                        <group>
+                            <field name="site_engineer_id"/>
+                            <field name="technical_office_engineer_id"/>
+                            <field name="priority"/>
+                            <field name="issue_type"/>
+                        </group>
+                    </group>
+                    <field name="subject"/>
+                    <field name="location"/>
+                    <field name="description"/>
+                    <field name="response"/>
+                    <notebook>
+                        <page string="Site Visit">
+                            <group>
+                                <field name="site_visit_required"/>
+                                <field name="site_visit_date"/>
+                                <field name="site_visit_notes"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+    
+    <record id="action_tpo_rfi" model="ir.actions.act_window">
+        <field name="name">Request for Information</field>
+        <field name="res_model">tpo.rfi</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>
+

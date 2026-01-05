@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_tpo_material_submittal_tree" model="ir.ui.view">
+        <field name="name">tpo.material.submittal.tree</field>
+        <field name="model">tpo.material.submittal</field>
+        <field name="arch" type="xml">
+            <list string="Material Submittal">
+                <field name="name"/>
+                <field name="project_id"/>
+                <field name="submittal_date"/>
+                <field name="state"/>
+                <field name="revision_number"/>
+            </list>
+        </field>
+    </record>
+    
+    <record id="view_tpo_material_submittal_form" model="ir.ui.view">
+        <field name="name">tpo.material.submittal.form</field>
+        <field name="model">tpo.material.submittal</field>
+        <field name="arch" type="xml">
+            <form string="Material Submittal">
+                <header>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,submitted,approved"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="project_id"/>
+                            <field name="submittal_date"/>
+                            <field name="response_date"/>
+                        </group>
+                        <group>
+                            <field name="technical_office_engineer_id"/>
+                            <field name="revision_number"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="material_description"/>
+                        <field name="specification"/>
+                        <field name="manufacturer"/>
+                        <field name="model"/>
+                    </group>
+                    <notebook>
+                        <page string="Submission Log">
+                            <field name="submission_log_ids">
+                                <list>
+                                    <field name="submission_date"/>
+                                    <field name="revision_number"/>
+                                    <field name="status"/>
+                                    <field name="response_date"/>
+                                    <field name="comments"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Documents">
+                            <field name="document_ids" widget="many2many_binary"/>
+                            <field name="sample_ids" widget="many2many_binary"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+    
+    <record id="action_tpo_material_submittal" model="ir.actions.act_window">
+        <field name="name">Material Submittal</field>
+        <field name="res_model">tpo.material.submittal</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>
+

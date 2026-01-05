@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_tpo_technical_offer_tree" model="ir.ui.view">
+        <field name="name">tpo.technical.offer.tree</field>
+        <field name="model">tpo.technical.offer</field>
+        <field name="arch" type="xml">
+            <list string="Technical &amp; Financial Offers">
+                <field name="name"/>
+                <field name="project_id"/>
+                <field name="date"/>
+                <field name="state"/>
+                <field name="total_amount" sum="Total"/>
+            </list>
+        </field>
+    </record>
+    
+    <record id="view_tpo_technical_offer_form" model="ir.ui.view">
+        <field name="name">tpo.technical.offer.form</field>
+        <field name="model">tpo.technical.offer</field>
+        <field name="arch" type="xml">
+            <form string="Technical &amp; Financial Offer">
+                <header>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,submitted,approved"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="project_id"/>
+                            <field name="date"/>
+                            <field name="offer_type"/>
+                        </group>
+                        <group>
+                            <field name="estimating_department_id"/>
+                            <field name="total_amount"/>
+                            <field name="validity_date"/>
+                        </group>
+                    </group>
+                    <field name="description"/>
+                    <notebook>
+                        <page string="Offer Items">
+                            <field name="offer_item_ids">
+                                <list editable="bottom">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="item_code"/>
+                                    <field name="description"/>
+                                    <field name="unit"/>
+                                    <field name="quantity"/>
+                                    <field name="unit_price"/>
+                                    <field name="amount"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+    
+    <record id="action_tpo_technical_offer" model="ir.actions.act_window">
+        <field name="name">Technical &amp; Financial Offers</field>
+        <field name="res_model">tpo.technical.offer</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>
+

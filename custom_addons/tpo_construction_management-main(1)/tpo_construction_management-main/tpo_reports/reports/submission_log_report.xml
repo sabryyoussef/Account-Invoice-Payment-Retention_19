@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_report_submission_log" model="ir.actions.report">
+        <field name="name">Submission Log Report</field>
+        <field name="model">tpo.project</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">tpo_reports.submission_log_report_template</field>
+        <field name="report_file">tpo_reports.submission_log_report</field>
+        <field name="print_report_name">'Submission Log Report - %s' % (object.name)</field>
+    </record>
+    
+    <template id="submission_log_report_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="project">
+                <div class="page">
+                    <div class="oe_structure"/>
+                    <div class="row">
+                        <div class="col-12">
+                            <h2>Submission Log Report</h2>
+                            <h3 t-field="project.name"/>
+                            
+                            <h4>Shop Drawings Submission Log</h4>
+                            <table class="table table-sm">
+                                <thead>
+                                    <tr>
+                                        <th>Drawing Reference</th>
+                                        <th>Submission Date</th>
+                                        <th>Revision</th>
+                                        <th>Status</th>
+                                        <th>Response Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="project.shop_drawing_ids" t-as="drawing">
+                                        <t t-foreach="drawing.submission_log_ids" t-as="log">
+                                            <tr>
+                                                <td t-field="drawing.name"/>
+                                                <td t-field="log.submission_date"/>
+                                                <td t-field="log.revision_number"/>
+                                                <td t-field="log.status"/>
+                                                <td t-field="log.response_date"/>
+                                            </tr>
+                                        </t>
+                                    </t>
+                                </tbody>
+                            </table>
+                            
+                            <h4>Material Submittal Submission Log</h4>
+                            <table class="table table-sm">
+                                <thead>
+                                    <tr>
+                                        <th>Submittal Reference</th>
+                                        <th>Submission Date</th>
+                                        <th>Revision</th>
+                                        <th>Status</th>
+                                        <th>Response Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="project.material_submittal_ids" t-as="submittal">
+                                        <t t-foreach="submittal.submission_log_ids" t-as="log">
+                                            <tr>
+                                                <td t-field="submittal.name"/>
+                                                <td t-field="log.submission_date"/>
+                                                <td t-field="log.revision_number"/>
+                                                <td t-field="log.status"/>
+                                                <td t-field="log.response_date"/>
+                                            </tr>
+                                        </t>
+                                    </t>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="oe_structure"/>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>
+

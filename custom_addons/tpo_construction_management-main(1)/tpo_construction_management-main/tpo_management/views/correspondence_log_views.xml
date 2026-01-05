@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_tpo_correspondence_log_tree" model="ir.ui.view">
+        <field name="name">tpo.correspondence.log.tree</field>
+        <field name="model">tpo.correspondence.log</field>
+        <field name="arch" type="xml">
+            <list string="Correspondence Log">
+                <field name="name"/>
+                <field name="project_id"/>
+                <field name="date"/>
+                <field name="correspondence_type"/>
+                <field name="direction"/>
+                <field name="priority"/>
+            </list>
+        </field>
+    </record>
+    
+    <record id="view_tpo_correspondence_log_form" model="ir.ui.view">
+        <field name="name">tpo.correspondence.log.form</field>
+        <field name="model">tpo.correspondence.log</field>
+        <field name="arch" type="xml">
+            <form string="Correspondence Log">
+                <header>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,sent,received"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="project_id"/>
+                            <field name="date"/>
+                            <field name="correspondence_type"/>
+                            <field name="direction"/>
+                        </group>
+                        <group>
+                            <field name="document_controller_id"/>
+                            <field name="from_partner_id"/>
+                            <field name="to_partner_id"/>
+                            <field name="priority"/>
+                        </group>
+                    </group>
+                    <field name="subject"/>
+                    <field name="description"/>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+    
+    <record id="action_tpo_correspondence_log" model="ir.actions.act_window">
+        <field name="name">Correspondence Log</field>
+        <field name="res_model">tpo.correspondence.log</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>
+

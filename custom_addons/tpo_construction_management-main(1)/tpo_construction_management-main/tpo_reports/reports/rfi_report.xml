@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_report_rfi" model="ir.actions.report">
+        <field name="name">RFI Tracking Report</field>
+        <field name="model">tpo.rfi</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">tpo_reports.rfi_report_template</field>
+        <field name="report_file">tpo_reports.rfi_report</field>
+        <field name="print_report_name">'RFI Report - %s' % (object.name)</field>
+    </record>
+    
+    <template id="rfi_report_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <div class="page">
+                    <div class="oe_structure"/>
+                    <div class="row">
+                        <div class="col-12">
+                            <h2>Request for Information Report</h2>
+                            <h3 t-field="doc.name"/>
+                            <p><strong>Project:</strong> <span t-field="doc.project_id.name"/></p>
+                            <p><strong>Subject:</strong> <span t-field="doc.subject"/></p>
+                            <p><strong>Issue Type:</strong> <span t-field="doc.issue_type"/></p>
+                            <p><strong>Priority:</strong> <span t-field="doc.priority"/></p>
+                            <p><strong>Status:</strong> <span t-field="doc.state"/></p>
+                            <p><strong>Location:</strong> <span t-field="doc.location"/></p>
+                            
+                            <h4>Description</h4>
+                            <p t-field="doc.description"/>
+                            
+                            <h4>Response</h4>
+                            <p t-field="doc.response"/>
+                        </div>
+                    </div>
+                    <div class="oe_structure"/>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>
+

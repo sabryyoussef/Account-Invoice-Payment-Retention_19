@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_tpo_root" name="TPO Management" action="action_tpo_project" sequence="100"/>
+    
+    <!-- Projects -->
+    <menuitem id="menu_tpo_projects" name="Projects" parent="menu_tpo_root" action="action_tpo_project" sequence="10"/>
+    
+    <!-- Pre-Execution & Planning -->
+    <menuitem id="menu_tpo_pre_execution" name="Pre-Execution &amp; Planning" parent="menu_tpo_root" sequence="20"/>
+    <menuitem id="menu_tpo_boq" name="Bill of Quantities" parent="menu_tpo_pre_execution" action="action_tpo_boq" sequence="10"/>
+    <menuitem id="menu_tpo_project_schedule" name="Project Schedule" parent="menu_tpo_pre_execution" action="action_tpo_project_schedule" sequence="20"/>
+    <menuitem id="menu_tpo_material_submittal" name="Material Submittal" parent="menu_tpo_pre_execution" action="action_tpo_material_submittal" sequence="30"/>
+    <menuitem id="menu_tpo_technical_offer" name="Technical &amp; Financial Offers" parent="menu_tpo_pre_execution" action="action_tpo_technical_offer" sequence="40"/>
+    
+    <!-- Execution & Monitoring -->
+    <menuitem id="menu_tpo_execution" name="Execution &amp; Monitoring" parent="menu_tpo_root" sequence="30"/>
+    <menuitem id="menu_tpo_shop_drawing" name="Shop Drawings" parent="menu_tpo_execution" action="action_tpo_shop_drawing" sequence="10"/>
+    <menuitem id="menu_tpo_rfi" name="Request for Information (RFI)" parent="menu_tpo_execution" action="action_tpo_rfi" sequence="20"/>
+    <menuitem id="menu_tpo_itr" name="Inspection &amp; Test Request (ITR)" parent="menu_tpo_execution" action="action_tpo_itr" sequence="30"/>
+    <menuitem id="menu_tpo_change_order" name="Change Orders / VO" parent="menu_tpo_execution" action="action_tpo_change_order" sequence="40"/>
+    <menuitem id="menu_tpo_correspondence_log" name="Correspondence Log" parent="menu_tpo_execution" action="action_tpo_correspondence_log" sequence="50"/>
+    
+    <!-- Financial & Closure -->
+    <menuitem id="menu_tpo_financial" name="Financial &amp; Closure" parent="menu_tpo_root" sequence="40"/>
+    <menuitem id="menu_tpo_payment_application" name="Payment Applications" parent="menu_tpo_financial" action="action_tpo_payment_application" sequence="10"/>
+    <menuitem id="menu_tpo_as_built_drawing" name="As-Built Drawings" parent="menu_tpo_financial" action="action_tpo_as_built_drawing" sequence="20"/>
+    <menuitem id="menu_tpo_project_handover" name="Project Handover" parent="menu_tpo_financial" action="action_tpo_project_handover" sequence="30"/>
+    
+    <!-- TPO Visits -->
+    <menuitem id="menu_tpo_visit" name="TPO Visits" parent="menu_tpo_root" action="action_tpo_visit" sequence="50"/>
+</odoo>

@@ -1,0 +1,16 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_tpo_project_user,tpo.project.user,model_tpo_project,base.group_user,1,1,1,1
+access_tpo_boq_user,tpo.boq.user,model_tpo_boq,base.group_user,1,1,1,1
+access_tpo_project_schedule_user,tpo.project.schedule.user,model_tpo_project_schedule,base.group_user,1,1,1,1
+access_tpo_material_submittal_user,tpo.material.submittal.user,model_tpo_material_submittal,base.group_user,1,1,1,1
+access_tpo_technical_offer_user,tpo.technical.offer.user,model_tpo_technical_offer,base.group_user,1,1,1,1
+access_tpo_shop_drawing_user,tpo.shop.drawing.user,model_tpo_shop_drawing,base.group_user,1,1,1,1
+access_tpo_rfi_user,tpo.rfi.user,model_tpo_rfi,base.group_user,1,1,1,1
+access_tpo_itr_user,tpo.itr.user,model_tpo_itr,base.group_user,1,1,1,1
+access_tpo_change_order_user,tpo.change.order.user,model_tpo_change_order,base.group_user,1,1,1,1
+access_tpo_correspondence_log_user,tpo.correspondence.log.user,model_tpo_correspondence_log,base.group_user,1,1,1,1
+access_tpo_payment_application_user,tpo.payment.application.user,model_tpo_payment_application,base.group_user,1,1,1,1
+access_tpo_as_built_drawing_user,tpo.as.built.drawing.user,model_tpo_as_built_drawing,base.group_user,1,1,1,1
+access_tpo_project_handover_user,tpo.project.handover.user,model_tpo_project_handover,base.group_user,1,1,1,1
+access_tpo_visit_user,tpo.visit.user,model_tpo_visit,base.group_user,1,1,1,1
+

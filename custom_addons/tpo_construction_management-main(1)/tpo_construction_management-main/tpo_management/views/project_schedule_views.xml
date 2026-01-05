@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_tpo_project_schedule_tree" model="ir.ui.view">
+        <field name="name">tpo.project.schedule.tree</field>
+        <field name="model">tpo.project.schedule</field>
+        <field name="arch" type="xml">
+            <list string="Project Schedule">
+                <field name="name"/>
+                <field name="project_id"/>
+                <field name="date"/>
+                <field name="state"/>
+            </list>
+        </field>
+    </record>
+    
+    <record id="view_tpo_project_schedule_form" model="ir.ui.view">
+        <field name="name">tpo.project.schedule.form</field>
+        <field name="model">tpo.project.schedule</field>
+        <field name="arch" type="xml">
+            <form string="Project Schedule">
+                <header>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,submitted,approved"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="project_id"/>
+                            <field name="date"/>
+                        </group>
+                        <group>
+                            <field name="project_manager_id"/>
+                            <field name="planner_id"/>
+                        </group>
+                    </group>
+                    <field name="description"/>
+                    <notebook>
+                        <page string="Activities">
+                            <field name="activity_ids">
+                                <list editable="bottom">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="name"/>
+                                    <field name="planned_start_date"/>
+                                    <field name="planned_end_date"/>
+                                    <field name="duration"/>
+                                    <field name="progress"/>
+                                    <field name="is_critical"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+    
+    <record id="action_tpo_project_schedule" model="ir.actions.act_window">
+        <field name="name">Project Schedule</field>
+        <field name="res_model">tpo.project.schedule</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>
+

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_report_shop_drawing" model="ir.actions.report">
+        <field name="name">Shop Drawing Status Report</field>
+        <field name="model">tpo.shop.drawing</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">tpo_reports.shop_drawing_report_template</field>
+        <field name="report_file">tpo_reports.shop_drawing_report</field>
+        <field name="print_report_name">'Shop Drawing Report - %s' % (object.name)</field>
+    </record>
+    
+    <template id="shop_drawing_report_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <div class="page">
+                    <div class="oe_structure"/>
+                    <div class="row">
+                        <div class="col-12">
+                            <h2>Shop Drawing Status Report</h2>
+                            <h3 t-field="doc.name"/>
+                            <p><strong>Project:</strong> <span t-field="doc.project_id.name"/></p>
+                            <p><strong>Discipline:</strong> <span t-field="doc.discipline"/></p>
+                            <p><strong>Status:</strong> <span t-field="doc.state"/></p>
+                            <p><strong>Revision:</strong> <span t-field="doc.revision_number"/></p>
+                            
+                            <h4>Submission Log</h4>
+                            <table class="table table-sm">
+                                <thead>
+                                    <tr>
+                                        <th>Submission Date</th>
+                                        <th>Revision</th>
+                                        <th>Status</th>
+                                        <th>Response Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="doc.submission_log_ids" t-as="log">
+                                        <tr>
+                                            <td t-field="log.submission_date"/>
+                                            <td t-field="log.revision_number"/>
+                                            <td t-field="log.status"/>
+                                            <td t-field="log.response_date"/>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="oe_structure"/>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>
+

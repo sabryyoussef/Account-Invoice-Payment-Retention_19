@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_report_payment_application" model="ir.actions.report">
+        <field name="name">Payment Application Report</field>
+        <field name="model">tpo.payment.application</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">tpo_reports.payment_application_report_template</field>
+        <field name="report_file">tpo_reports.payment_application_report</field>
+        <field name="print_report_name">'Payment Application Report - %s' % (object.name)</field>
+    </record>
+    
+    <template id="payment_application_report_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <div class="page">
+                    <div class="oe_structure"/>
+                    <div class="row">
+                        <div class="col-12">
+                            <h2>Payment Application Report</h2>
+                            <h3 t-field="doc.name"/>
+                            <p><strong>Project:</strong> <span t-field="doc.project_id.name"/></p>
+                            <p><strong>Period:</strong> <span t-field="doc.period_start_date"/> to <span t-field="doc.period_end_date"/></p>
+                            <p><strong>Total Amount:</strong> <span t-field="doc.total_amount"/></p>
+                            
+                            <h4>Application Lines</h4>
+                            <table class="table table-sm">
+                                <thead>
+                                    <tr>
+                                        <th>Item Code</th>
+                                        <th>Description</th>
+                                        <th>Quantity</th>
+                                        <th>Unit Price</th>
+                                        <th>Amount</th>
+                                        <th>Progress %</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="doc.line_ids" t-as="line">
+                                        <tr>
+                                            <td t-field="line.item_code"/>
+                                            <td t-field="line.description"/>
+                                            <td t-field="line.quantity"/>
+                                            <td t-field="line.unit_price"/>
+                                            <td t-field="line.amount"/>
+                                            <td t-field="line.progress_percentage"/>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="4"><strong>Total</strong></td>
+                                        <td t-field="doc.total_amount"/>
+                                        <td></td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="oe_structure"/>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>
+
