@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_tpo_visit_tree" model="ir.ui.view">
+        <field name="name">tpo.visit.tree</field>
+        <field name="model">tpo.visit</field>
+        <field name="arch" type="xml">
+            <list string="TPO Visits">
+                <field name="name"/>
+                <field name="project_id"/>
+                <field name="visit_date"/>
+                <field name="visit_type"/>
+                <field name="state"/>
+            </list>
+        </field>
+    </record>
+    
+    <record id="view_tpo_visit_form" model="ir.ui.view">
+        <field name="name">tpo.visit.form</field>
+        <field name="model">tpo.visit</field>
+        <field name="arch" type="xml">
+            <form string="TPO Visit">
+                <header>
+                    <field name="state" widget="statusbar" statusbar_visible="planned,in_progress,completed"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="project_id"/>
+                            <field name="visit_date"/>
+                            <field name="visit_type"/>
+                        </group>
+                        <group>
+                            <field name="technical_office_engineer_id"/>
+                            <field name="site_engineer_id"/>
+                            <field name="surveyor_id"/>
+                            <field name="project_manager_id"/>
+                        </group>
+                    </group>
+                    <field name="location"/>
+                    <field name="purpose"/>
+                    <field name="findings"/>
+                    <field name="recommendations"/>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+    
+    <record id="action_tpo_visit" model="ir.actions.act_window">
+        <field name="name">TPO Visits</field>
+        <field name="res_model">tpo.visit</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>
+

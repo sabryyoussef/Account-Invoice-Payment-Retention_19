@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_report_itr" model="ir.actions.report">
+        <field name="name">ITR Status Report</field>
+        <field name="model">tpo.itr</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">tpo_reports.itr_report_template</field>
+        <field name="report_file">tpo_reports.itr_report</field>
+        <field name="print_report_name">'ITR Report - %s' % (object.name)</field>
+    </record>
+    
+    <template id="itr_report_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <div class="page">
+                    <div class="oe_structure"/>
+                    <div class="row">
+                        <div class="col-12">
+                            <h2>Inspection &amp; Test Request Report</h2>
+                            <h3 t-field="doc.name"/>
+                            <p><strong>Project:</strong> <span t-field="doc.project_id.name"/></p>
+                            <p><strong>Inspection Type:</strong> <span t-field="doc.inspection_type"/></p>
+                            <p><strong>Status:</strong> <span t-field="doc.state"/></p>
+                            <p><strong>Location:</strong> <span t-field="doc.location"/></p>
+                            <p><strong>Inspection Result:</strong> <span t-field="doc.inspection_result"/></p>
+                            
+                            <h4>Description</h4>
+                            <p t-field="doc.description"/>
+                            
+                            <h4>Inspection Notes</h4>
+                            <p t-field="doc.inspection_notes"/>
+                        </div>
+                    </div>
+                    <div class="oe_structure"/>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>
+

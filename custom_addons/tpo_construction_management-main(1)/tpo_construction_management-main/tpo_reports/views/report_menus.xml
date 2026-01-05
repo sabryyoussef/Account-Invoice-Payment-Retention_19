@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_tpo_reports" name="TPO Reports" parent="tpo_management.menu_tpo_root" sequence="100"/>
+    
+    <menuitem id="menu_tpo_reports_boq" name="BOQ Report" parent="menu_tpo_reports" action="action_report_boq" sequence="10"/>
+    <menuitem id="menu_tpo_reports_shop_drawing" name="Shop Drawing Report" parent="menu_tpo_reports" action="action_report_shop_drawing" sequence="20"/>
+    <menuitem id="menu_tpo_reports_rfi" name="RFI Report" parent="menu_tpo_reports" action="action_report_rfi" sequence="30"/>
+    <menuitem id="menu_tpo_reports_itr" name="ITR Report" parent="menu_tpo_reports" action="action_report_itr" sequence="40"/>
+    <menuitem id="menu_tpo_reports_change_order" name="Change Order Report" parent="menu_tpo_reports" action="action_report_change_order" sequence="50"/>
+    <menuitem id="menu_tpo_reports_payment_application" name="Payment Application Report" parent="menu_tpo_reports" action="action_report_payment_application" sequence="60"/>
+    <menuitem id="menu_tpo_reports_document_status" name="Document Status Dashboard" parent="menu_tpo_reports" action="action_report_document_status" sequence="70"/>
+    <menuitem id="menu_tpo_reports_submission_log" name="Submission Log Report" parent="menu_tpo_reports" action="action_report_submission_log" sequence="80"/>
+    <menuitem id="menu_tpo_reports_project_progress" name="Project Progress Report" parent="menu_tpo_reports" action="action_report_project_progress" sequence="90"/>
+</odoo>
+

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_report_project_progress" model="ir.actions.report">
+        <field name="name">Project Progress Report</field>
+        <field name="model">tpo.project</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">tpo_reports.project_progress_report_template</field>
+        <field name="report_file">tpo_reports.project_progress_report</field>
+        <field name="print_report_name">'Project Progress Report - %s' % (object.name)</field>
+    </record>
+    
+    <template id="project_progress_report_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="project">
+                <div class="page">
+                    <div class="oe_structure"/>
+                    <div class="row">
+                        <div class="col-12">
+                            <h2>Project Progress Report</h2>
+                            <h3 t-field="project.name"/>
+                            <p><strong>Project Code:</strong> <span t-field="project.code"/></p>
+                            <p><strong>Client:</strong> <span t-field="project.partner_id.name"/></p>
+                            <p><strong>Phase:</strong> <span t-field="project.phase"/></p>
+                            <p><strong>Start Date:</strong> <span t-field="project.start_date"/></p>
+                            <p><strong>End Date:</strong> <span t-field="project.end_date"/></p>
+                            
+                            <h4>Project Team</h4>
+                            <ul>
+                                <li><strong>Project Manager:</strong> <span t-field="project.project_manager_id.name"/></li>
+                                <li><strong>Technical Office Engineer:</strong> <span t-field="project.technical_office_engineer_id.name"/></li>
+                                <li><strong>Site Engineer:</strong> <span t-field="project.site_engineer_id.name"/></li>
+                            </ul>
+                            
+                            <h4>Document Progress</h4>
+                            <table class="table table-sm">
+                                <thead>
+                                    <tr>
+                                        <th>Document Type</th>
+                                        <th>Total</th>
+                                        <th>Draft</th>
+                                        <th>Submitted</th>
+                                        <th>Approved</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Shop Drawings</td>
+                                        <td t-field="project.shop_drawing_count"/>
+                                        <td t-esc="len([d for d in project.shop_drawing_ids if d.state == 'draft'])"/>
+                                        <td t-esc="len([d for d in project.shop_drawing_ids if d.state == 'submitted'])"/>
+                                        <td t-esc="len([d for d in project.shop_drawing_ids if d.state == 'approved'])"/>
+                                    </tr>
+                                    <tr>
+                                        <td>RFIs</td>
+                                        <td t-field="project.rfi_count"/>
+                                        <td t-esc="len([d for d in project.rfi_ids if d.state == 'draft'])"/>
+                                        <td t-esc="len([d for d in project.rfi_ids if d.state == 'submitted'])"/>
+                                        <td t-esc="len([d for d in project.rfi_ids if d.state == 'answered'])"/>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="oe_structure"/>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>
+
