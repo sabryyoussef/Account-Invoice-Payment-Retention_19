@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+  <record id="res_config_settings_view_form_inherit_gcc_project_invoice" model="ir.ui.view">
+    <field name="name">res.config.settings.form.inherit.gcc.project.invoice</field>
+    <field name="model">res.config.settings</field>
+    <field name="inherit_id" ref="account.res_config_settings_view_form"/>
+    <field name="arch" type="xml">
+      <xpath expr="//div[@id='account']" position="inside">
+        <div class="app_settings_block" data-key="gcc_project_invoice" string="GCC Project Invoice">
+          <h2>Project deduction accounts</h2>
+          <p class="text-muted">Configure accounts used when posting customer invoices with advance, retention, performance bond or penalties.</p>
+          <div class="row mt-3">
+            <label for="advance_received_account_id" class="col-lg-3 o_form_label"/>
+            <field name="advance_received_account_id" class="col-lg-9" options="{'no_create': True}"/>
+          </div>
+          <div class="row mt-3">
+            <label for="retention_receivable_account_id" class="col-lg-3 o_form_label"/>
+            <field name="retention_receivable_account_id" class="col-lg-9" options="{'no_create': True}"/>
+          </div>
+          <div class="row mt-3">
+            <label for="performance_bond_receivable_account_id" class="col-lg-3 o_form_label"/>
+            <field name="performance_bond_receivable_account_id" class="col-lg-9" options="{'no_create': True}"/>
+          </div>
+          <div class="row mt-3">
+            <label for="deduction_account_id" class="col-lg-3 o_form_label"/>
+            <field name="deduction_account_id" class="col-lg-9" options="{'no_create': True}"/>
+          </div>
+        </div>
+      </xpath>
+    </field>
+  </record>
+
+</odoo>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+  <record id="view_move_form_inherit_gcc_project_invoice" model="ir.ui.view">
+    <field name="name">account.move.form.inherit.gcc.project.invoice</field>
+    <field name="model">account.move</field>
+    <field name="inherit_id" ref="account.view_invoice_form"/>
+    <field name="arch" type="xml">
+      <xpath expr="//field[@name='invoice_payment_state']" position="after">
+        <group string="Project / Deductions" name="gcc_project_deductions" attrs="{'invisible': [('move_type', '!=', 'out_invoice')]}">
+          <group>
+            <field name="contract_ref" placeholder="e.g. MC-21323"/>
+            <field name="po_ref" placeholder="PO No"/>
+            <field name="invoice_ref" placeholder="Inv Ref"/>
+            <field name="covered_period" optional="show"/>
+          </group>
+          <group>
+            <field name="advance_payment_deduction"/>
+            <field name="penalties_deductions"/>
+            <field name="performance_bond_amount"/>
+            <field name="retention_percent"/>
+            <field name="retention_amount"/>
+          </group>
+          <group string="Summary" name="gcc_summary">
+            <field name="gross_untaxed" readonly="1"/>
+            <field name="deductions_total" readonly="1"/>
+            <field name="tax_base_after_deductions" readonly="1"/>
+            <field name="amount_tax" readonly="1"/>
+            <field name="amount_total" readonly="1"/>
+            <field name="retention_amount" readonly="1"/>
+            <field name="net_collect_now" readonly="1"/>
+          </group>
+        </group>
+      </xpath>
+    </field>
+  </record>
+
+</odoo>
